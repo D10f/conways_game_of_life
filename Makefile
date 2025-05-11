@@ -3,9 +3,11 @@
 CC        := gcc
 CCFLAGS   := -std=c99 -Wall -Wextra -Wfatal-errors -pthread
 TARGET    := game-of-life
+LIBS      := SDL2 m
 BUILD_DIR := build/
-SRCDIRS   := $(shell find src -type d)
-SOURCES   := $(foreach D,$(SRCDIRS), $(wildcard $(D)/*.c))
+SRCDIRS   := src/
+LDLIBS    := $(addprefix -l,$(LIBS))
+SOURCES   := $(foreach D,$(SRCDIRS), $(wildcard $(D)*.c))
 OBJS      := $(addprefix $(BUILD_DIR),$(SOURCES:.c=.o))
 DEPS      := $(OBJS:.o=.d)
 
@@ -32,7 +34,11 @@ run: $(TARGET)
 	@rm $(TARGET)
 
 mem-check: $(TARGET)
-	valgrind ./$(TARGET)
+	valgrind \
+		--leak-check=full \
+		--track-origins=yes \
+		--show-reachable=yes \
+		./$(TARGET)
 	@rm $(TARGET)
 
 clean:
