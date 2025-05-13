@@ -1,0 +1,8 @@
+a.out
+out
+vgcore*
+game-of-life
+build
+node_modules
+package.json
+compile_commands.json
