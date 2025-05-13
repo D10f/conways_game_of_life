@@ -44,9 +44,11 @@ uint8_t game_free(struct Game **game)
     return 0;
 }
 
-uint8_t game_run(struct Game **g)
+uint8_t game_run(struct Game *game)
 {
-    printf("Hello, world\n");
+    SDL_RenderClear(game->renderer);
+    SDL_RenderPresent(game->renderer);
+    SDL_Delay(2000);
     return 0;
 }
 

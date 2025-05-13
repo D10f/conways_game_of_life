@@ -8,7 +8,7 @@ int main(void)
     struct Game *game = NULL;
 
     if (game_new(&game) == 0) {
-        game_run(&game);
+        game_run(game);
         exit_status = 0;
     }
 

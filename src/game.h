@@ -16,6 +16,6 @@ uint8_t game_new(struct Game **game);
 
 uint8_t game_free(struct Game **game);
 
-uint8_t game_run(struct Game **g);
+uint8_t game_run(struct Game *game);
 
 #endif // !_GAME_H
