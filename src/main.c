@@ -3,16 +3,16 @@
 
 int main(void)
 {
-    int exit_status = 0;
+    int exit_status = 1;
 
     struct Game *game = NULL;
 
-    if (game_new(&game) != 0) {
-        fprintf(stderr, "Something went wrong.\n");
-        exit_status = 1;
+    if (game_new(&game) == 0) {
+        game_run(&game);
+        exit_status = 0;
     }
 
-    game_run(&game);
+    game_free(&game);
 
     return exit_status;
 }

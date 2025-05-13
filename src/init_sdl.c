@@ -14,11 +14,17 @@ uint8_t game_init_sdl(struct Game *g)
 
     g->window = SDL_CreateWindow(WINDOW_TITLE, SDL_WINDOWPOS_CENTERED,
                                  SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH,
-                                 WINDOW_HEIGHT, 0);
+                                 WINDOW_HEIGHT, SDL_WINDOW_FLAGS);
 
-    if (g->window != 0) {
+    if (g->window == NULL) {
         fprintf(stderr, "%s\n", SDL_GetError());
-        game_free(&g);
+        return 1;
+    }
+
+    g->renderer = SDL_CreateRenderer(g->window, -1, SDL_RENDERER_FLAGS);
+
+    if (g->renderer == NULL) {
+        fprintf(stderr, "%s\n", SDL_GetError());
         return 1;
     }
 
