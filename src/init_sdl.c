@@ -2,10 +2,18 @@
 #include "game.h"
 #include "main.h"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_surface.h>
+#include <SDL2/SDL_video.h>
 
 uint8_t game_init_sdl(struct Game *g)
 {
     uint8_t is_running = SDL_Init(SDL_INIT_FLAGS);
+
+    // IMG_INIT returns an int as a bitfield of the initialized images
+    if ((IMG_Init(IMG_FLAGS) & IMG_FLAGS) != IMG_FLAGS) {
+        fprintf(stderr, "Failed to load the requested SDL image modules.\n");
+    }
 
     if (is_running != 0) {
         fprintf(stderr, "%s\n", SDL_GetError());
@@ -27,6 +35,17 @@ uint8_t game_init_sdl(struct Game *g)
         fprintf(stderr, "%s\n", SDL_GetError());
         return 1;
     }
+
+    SDL_Surface *icon = IMG_Load("images/cgol.png");
+
+    if (icon == NULL) {
+        fprintf(stderr, "%s\n", IMG_GetError());
+        return 1;
+    }
+
+    SDL_SetWindowIcon(g->window, icon);
+    SDL_FreeSurface(icon);
+    icon = NULL;
 
     return 0;
 }

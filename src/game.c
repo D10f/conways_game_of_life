@@ -49,6 +49,7 @@ uint8_t game_free(struct Game **game)
         _game->window = NULL;
     }
 
+    IMG_Quit();
     SDL_Quit();
 
     free(_game);

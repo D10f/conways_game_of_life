@@ -3,7 +3,7 @@
 CC        := gcc
 CCFLAGS   := -std=c99 -Wall -Wextra -Wfatal-errors -pthread
 TARGET    := game-of-life
-LIBS      := SDL2 m
+LIBS      := SDL2 SDL2_image m
 BUILD_DIR := build/
 SRCDIRS   := src/
 LDLIBS    := $(addprefix -l,$(LIBS))
