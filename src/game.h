@@ -7,6 +7,8 @@
 struct Game {
     SDL_Renderer *renderer;
     SDL_Window   *window;
+    SDL_Event    event;
+    uint8_t      is_running;
 };
 
 /**
