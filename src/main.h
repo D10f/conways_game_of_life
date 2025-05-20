@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
+#include <time.h>
 
 #define SDL_INIT_FLAGS          (SDL_INIT_VIDEO | SDL_INIT_AUDIO)
 #define SDL_WINDOW_FLAGS        SDL_WINDOW_BORDERLESS
@@ -16,5 +17,8 @@
 #define WINDOW_HEIGHT           720
 
 #define CELL_SIZE               10
+
+#define RENDERER_COLOR          0, 0, 0, 255
+#define CELL_COLOR              128, 128, 128, 255
 
 #endif // !_MAIN_H

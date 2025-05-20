@@ -1,4 +1,5 @@
 #include "game.h"
+#include "board.h"
 #include "init_sdl.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_keycode.h>
@@ -29,6 +30,12 @@ uint8_t game_new(struct Game **game)
 
     (*game)->is_running = 1;
 
+    srand((uint32_t)time(NULL));
+
+    if (board_new(&(*game)->board, (*game)->renderer) != 0) {
+        return 1;
+    }
+
     return 0;
 }
 
@@ -36,6 +43,9 @@ uint8_t game_free(struct Game **game)
 {
     if (*game == NULL)
         return 1;
+
+    if ((*game)->board)
+        board_free(&(*game)->board);
 
     struct Game *_game = *game;
 
@@ -93,7 +103,11 @@ void game_events(struct Game *game)
 
 void game_render(struct Game *game)
 {
+    SDL_SetRenderDrawColor(game->renderer, RENDERER_COLOR);
     SDL_RenderClear(game->renderer);
+
+    board_render(game->board);
+
     SDL_RenderPresent(game->renderer);
 }
 

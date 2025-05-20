@@ -9,6 +9,7 @@ struct Game {
     SDL_Window   *window;
     SDL_Event    event;
     uint8_t      is_running;
+    struct Board *board;
 };
 
 /**
