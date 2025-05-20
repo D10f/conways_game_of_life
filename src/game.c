@@ -88,6 +88,12 @@ void game_events(struct Game *game)
                     case SDLK_ESCAPE:
                         game->is_running = 0;
                         break;
+                    case SDLK_r:
+                        board_reset(game->board);
+                        break;
+                    case SDLK_c:
+                        board_clear(game->board);
+                        break;
                     default:
                         break;
                 }

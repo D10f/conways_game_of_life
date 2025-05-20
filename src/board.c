@@ -100,3 +100,14 @@ void board_reset(struct Board *board)
         }
     }
 }
+
+void board_clear(struct Board *board)
+{
+    uint32_t board_idx;
+    for (int row = 0; row < board->rows; ++row) {
+        for (int col = 0; col < board->cols; ++col) {
+            board_idx = row * board->cols + col;
+            board->current_iteration[board_idx] = 0;
+        }
+    }
+}
