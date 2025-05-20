@@ -15,4 +15,6 @@
 #define WINDOW_WIDTH            1280
 #define WINDOW_HEIGHT           720
 
+#define CELL_SIZE               10
+
 #endif // !_MAIN_H
