@@ -4,14 +4,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_keycode.h>
 
-/**
- * Internal function to handle input events.
- */
 static void game_events(struct Game *game);
-
-/**
- * Internal function to handle the rendering process.
- */
+static void game_update(struct Game *game);
 static void game_render(struct Game *game);
 
 uint8_t game_new(struct Game **game)
@@ -72,6 +66,7 @@ uint8_t game_run(struct Game *game)
 {
     while (game->is_running) {
         game_events(game);
+        game_update(game);
         game_render(game);
         SDL_Delay(17);
     }
@@ -105,6 +100,11 @@ void game_events(struct Game *game)
                 break;
         }
     }
+}
+
+void game_update(struct Game *game)
+{
+    board_update(game->board);
 }
 
 void game_render(struct Game *game)

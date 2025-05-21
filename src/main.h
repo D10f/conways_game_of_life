@@ -19,6 +19,6 @@
 #define CELL_SIZE               10
 
 #define RENDERER_COLOR          0, 0, 0, 255
-#define CELL_COLOR              128, 128, 128, 255
+#define CELL_COLOR              155, 155, 155, 255
 
 #endif // !_MAIN_H
