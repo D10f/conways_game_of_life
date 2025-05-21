@@ -7,12 +7,12 @@
 /**
  * Internal function to handle input events.
  */
-void game_events(struct Game *game);
+static void game_events(struct Game *game);
 
 /**
  * Internal function to handle the rendering process.
  */
-void game_render(struct Game *game);
+static void game_render(struct Game *game);
 
 uint8_t game_new(struct Game **game)
 {
@@ -30,7 +30,7 @@ uint8_t game_new(struct Game **game)
 
     (*game)->is_running = 1;
 
-    srand((uint32_t)time(NULL));
+    srand(time(NULL));
 
     if (board_new(&(*game)->board, (*game)->renderer) != 0) {
         return 1;
