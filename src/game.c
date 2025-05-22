@@ -68,7 +68,7 @@ uint8_t game_run(struct Game *game)
         game_events(game);
         game_update(game);
         game_render(game);
-        SDL_Delay(17);
+        SDL_Delay(100);
     }
 
     return 0;

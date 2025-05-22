@@ -17,8 +17,10 @@
 #define WINDOW_HEIGHT           720
 
 #define CELL_SIZE               10
+#define CELL_COLOR              155, 155, 155, 255
 
 #define RENDERER_COLOR          0, 0, 0, 255
-#define CELL_COLOR              155, 155, 155, 255
+
+#define WRAP_AROUND             1
 
 #endif // !_MAIN_H

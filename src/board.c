@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+static uint8_t count_neighbors(struct Board *board, int row, int col);
+
 uint8_t board_new(struct Board **board, SDL_Renderer *renderer)
 {
     *board = calloc(1, sizeof(struct Board));
@@ -97,19 +99,7 @@ void board_update(struct Board *board)
         for (int col = 0; col < board->cols; ++col) {
 
             cell_idx = row * board->cols + col;
-            neighbor_count = 0;
-
-            // Counting neighbors of current cell, including wrap-around cells
-            // on the other side of the board.
-            for (int r = row - 1; r <= row + 1; ++r) {
-                for (int c = col - 1; c <= col + 1; ++c) {
-                    if (r != row || c != col) {
-                        int wrap_r = (r + board->rows) % board->rows;
-                        int wrap_c = (c + board->cols) % board->cols;
-                        neighbor_count += board->current[wrap_r * board->cols + wrap_c];
-                    }
-                }
-            }
+            neighbor_count = count_neighbors(board, row, col);
 
             is_alive = board->current[cell_idx];
 
@@ -151,4 +141,25 @@ void board_clear(struct Board *board)
             board->current[cell_idx] = 0;
         }
     }
+}
+
+uint8_t count_neighbors(struct Board *b, int row, int col)
+{
+    uint8_t neighbor_count = 0;
+
+    for (int r = row - 1; r <= row + 1; ++r) {
+        for (int c = col - 1; c <= col + 1; ++c) {
+            if (r == row && c == col) continue;
+            if (WRAP_AROUND) {
+                int wrap_r = (r + b->rows) % b->rows;
+                int wrap_c = (c + b->cols) % b->cols;
+                neighbor_count += b->current[wrap_r * b->cols + wrap_c];
+            } else {
+                if (r < 0 || r > b->rows || c < 0 || c > b->cols) continue;
+                neighbor_count += b->current[r * b->cols + c];
+            }
+        }
+    }
+
+    return neighbor_count;
 }
