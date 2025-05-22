@@ -2,14 +2,16 @@
 #define _GAME_H
 
 #include "main.h"
+#include "fps.h"
 #include <stdint.h>
 
 struct Game {
+    struct Board *board;
+    struct Fps   *fps;
     SDL_Renderer *renderer;
     SDL_Window   *window;
     SDL_Event    event;
     uint8_t      is_running;
-    struct Board *board;
 };
 
 /**

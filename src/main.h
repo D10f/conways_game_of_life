@@ -23,4 +23,6 @@
 
 #define WRAP_AROUND             1
 
+#define TARGET_FPS              24
+
 #endif // !_MAIN_H

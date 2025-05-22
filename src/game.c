@@ -1,5 +1,6 @@
 #include "game.h"
 #include "board.h"
+#include "fps.h"
 #include "init_sdl.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_keycode.h>
@@ -18,17 +19,18 @@ uint8_t game_new(struct Game **game)
         return 1;
     }
 
-    if (game_init_sdl(*game) != 0) {
+    if (game_init_sdl(*game) != 0)
         return 1;
-    }
 
     (*game)->is_running = 1;
 
     srand(time(NULL));
 
-    if (board_new(&(*game)->board, (*game)->renderer) != 0) {
+    if (board_new(&(*game)->board, (*game)->renderer) != 0)
         return 1;
-    }
+
+    if (fps_new(&(*game)->fps) != 0)
+        return 1;
 
     return 0;
 }
@@ -37,6 +39,9 @@ uint8_t game_free(struct Game **game)
 {
     if (*game == NULL)
         return 1;
+
+    if ((*game)->fps)
+        fps_free(&(*game)->fps);
 
     if ((*game)->board)
         board_free(&(*game)->board);
@@ -68,7 +73,7 @@ uint8_t game_run(struct Game *game)
         game_events(game);
         game_update(game);
         game_render(game);
-        SDL_Delay(100);
+        /*fps_update(game->fps);*/
     }
 
     return 0;
@@ -105,6 +110,7 @@ void game_events(struct Game *game)
 void game_update(struct Game *game)
 {
     board_update(game->board);
+    fps_update(game->fps);
 }
 
 void game_render(struct Game *game)
